@@ -34,6 +34,7 @@ export function Web3ModalProvider({ children }: { children: React.ReactNode }) {
                   accentColorForeground: "white",
                 })
           }
+          showRecentTransactions={true}
         >
           {children}
         </RainbowKitProvider>

@@ -7,16 +7,15 @@ type Transports = {
 };
 
 const chains = [
-  mainnet,
-  ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [sepolia] : []),
+  sepolia,
+  ...(process.env.NEXT_PUBLIC_ENABLE_MAINNET === "true" ? [mainnet] : []),
 ] as const;
 
 const transports: Transports = {
-  [mainnet.id]: http(process.env.NEXT_PUBLIC_ETHEREUM_URL_TRANSPORT),
+  [sepolia.id]: http(process.env.NEXT_PUBLIC_SEPOLIA_URL_TRANSPORT),
 };
-
-if (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true") {
-  transports[sepolia.id] = http(process.env.NEXT_PUBLIC_SEPOLIA_URL_TRANSPORT);
+if (process.env.NEXT_PUBLIC_ENABLE_MAINNET === "true") {
+  transports[mainnet.id] = http(process.env.NEXT_PUBLIC_ETHEREUM_URL_TRANSPORT);
 }
 
 export const config = getDefaultConfig({
