@@ -137,9 +137,9 @@ export function Tokens() {
         <div className="flex items-center justify-between">
           <span>Current Balance:</span>
           <span className="font-bold">{`${formatUnits(
-            balance?.result as bigint,
+            (balance?.result as bigint) || BigInt(0),
             decimals?.result as number
-          )} ${symbol?.result}`}</span>
+          )} ${symbol?.result || "LEGIT"}`}</span>
         </div>
         <div className="mt-4 space-y-4">
           <Input
