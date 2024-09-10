@@ -87,7 +87,7 @@ export function Prizes() {
           <Input
             type="number"
             name="amount"
-            placeholder="Amount"
+            placeholder="Amount in LEGIT"
             onChange={changeAmount}
             value={amount}
           />

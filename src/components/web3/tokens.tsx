@@ -67,11 +67,11 @@ export function Tokens() {
             hash: data,
           });
           alert(
-            `Tokens purchased tx hash: ${transactionReceipt.transactionHash}`
+            `Tokens purchased tx hash: ${transactionReceipt.transactionHash}`,
           );
         },
         onError: (error) => alert(error.message),
-      }
+      },
     );
   };
 
@@ -89,11 +89,11 @@ export function Tokens() {
           });
           setIsApproved(true);
           alert(
-            `Tokens approved tx hash: ${transactionReceipt.transactionHash}`
+            `Tokens approved tx hash: ${transactionReceipt.transactionHash}`,
           );
         },
         onError: (error) => alert(error.message),
-      }
+      },
     );
   };
 
@@ -114,11 +114,11 @@ export function Tokens() {
           });
           setIsApproved(false);
           alert(
-            `Tokens returned tx hash: ${transactionReceipt.transactionHash}`
+            `Tokens returned tx hash: ${transactionReceipt.transactionHash}`,
           );
         },
         onError: (error) => alert(error.message),
-      }
+      },
     );
   };
 
@@ -138,27 +138,29 @@ export function Tokens() {
           <span>Current Balance:</span>
           <span className="font-bold">{`${formatUnits(
             (balance?.result as bigint) || BigInt(0),
-            decimals?.result as number
+            decimals?.result as number,
           )} ${symbol?.result || "LEGIT"}`}</span>
         </div>
+
         <div className="mt-4 space-y-4">
           <Input
             type="number"
             name="amount"
             disabled={isApproved}
-            placeholder="Amount"
+            placeholder="Amount to buy in ETH or to withdraw in LEGIT"
             onChange={changeAmount}
             value={amount}
           />
+
           <div className="grid w-full grid-cols-2 space-x-4">
             <Button onClick={buyTokens}>Buy Tokens</Button>
             {isApproved ? (
               <Button variant="outline" onClick={returnTokens}>
-                Return Tokens
+                Withdraw Tokens
               </Button>
             ) : (
               <Button variant="outline" onClick={approveTokens}>
-                Approve Tokens
+                Approve to Withdraw
               </Button>
             )}
           </div>

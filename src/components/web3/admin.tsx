@@ -55,11 +55,11 @@ export function Admin() {
             hash: data,
           });
           alert(
-            `Tokens purchased tx hash: ${transactionReceipt.transactionHash}`
+            `Tokens purchased tx hash: ${transactionReceipt.transactionHash}`,
           );
         },
         onError: (error) => alert(error.message),
-      }
+      },
     );
   };
 
@@ -85,7 +85,7 @@ export function Admin() {
           <Input
             type="number"
             name="amount"
-            placeholder="Amount"
+            placeholder="Amount in LEGIT"
             onChange={changeAmount}
             value={amount}
           />
