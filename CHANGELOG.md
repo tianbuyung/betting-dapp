@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/tianbuyung/betting-dapp/compare/v0.2.0...v0.3.0) (2024-09-10)
+
+
+### Features
+
+* **bets:** add many times place bet ([8558d9c](https://github.com/tianbuyung/betting-dapp/commit/8558d9c0dc164da412327a1eb8bf2467cad54f52))
+
 # [0.2.0](https://github.com/tianbuyung/betting-dapp/compare/v0.1.2...v0.2.0) (2024-09-10)
 
 
