@@ -1,4 +1,4 @@
-import { TabsMenu } from "@/components/menu/tabs-menu";
+import { TabsMenu } from "@/components/features/tabs-menu";
 
 export default function Home() {
   return (

@@ -19,6 +19,7 @@ import {
 } from "../ui/card";
 import { Input } from "../ui/input";
 import { lotteryContract } from "@/assets";
+import { CountdownTimer } from "../features/countdown-timer";
 
 export function Lottery() {
   const [duration, setDuration] = useState("");
@@ -61,11 +62,11 @@ export function Lottery() {
             hash: data,
           });
           alert(
-            `Tokens purchased tx hash: ${transactionReceipt.transactionHash}`
+            `Tokens purchased tx hash: ${transactionReceipt.transactionHash}`,
           );
         },
         onError: (error) => alert(error.message),
-      }
+      },
     );
   };
 
@@ -81,11 +82,11 @@ export function Lottery() {
             hash: data,
           });
           alert(
-            `Lottery closed successfully. Transaction hash: ${transactionReceipt.transactionHash}`
+            `Lottery closed successfully. Transaction hash: ${transactionReceipt.transactionHash}`,
           );
         },
         onError: (error) => alert(error.message),
-      }
+      },
     );
   };
 
@@ -109,11 +110,12 @@ export function Lottery() {
         </div>
         {(betsOpen?.result as boolean) && (
           <div className="text-center">
+            <CountdownTimer targetTimestamp={Number(betsClosingTime?.result)} />
             <span className="font-bold">
               {`Lottery should close at ${new Date(
-                Number(betsClosingTime?.result) * 1000
+                Number(betsClosingTime?.result) * 1000,
               ).toLocaleDateString()} : ${new Date(
-                Number(betsClosingTime?.result) * 1000
+                Number(betsClosingTime?.result) * 1000,
               ).toLocaleTimeString()}`}
             </span>
           </div>

@@ -2,6 +2,7 @@
 
 import {
   type BaseError,
+  useAccount,
   useClient,
   useReadContracts,
   useWriteContract,
@@ -24,6 +25,7 @@ import { lotteryContract, lotteryTokenContract } from "@/assets";
 export function Bets() {
   const [isApproved, setIsApproved] = useState(false);
   const client = useClient();
+  const { address } = useAccount();
   const { writeContract } = useWriteContract();
   const { data, error, isPending } = useReadContracts({
     contracts: [
@@ -39,9 +41,14 @@ export function Bets() {
         ...lotteryContract,
         functionName: "prizePool",
       },
+      {
+        ...lotteryTokenContract,
+        functionName: "balanceOf",
+        args: [address],
+      },
     ],
   });
-  const [betPrice, betFee, prizePool] = data || [];
+  const [betPrice, betFee, prizePool, balance] = data || [];
 
   if (isPending) return <p>Loading...</p>;
 
@@ -62,11 +69,11 @@ export function Bets() {
           });
           setIsApproved(true);
           alert(
-            `Tokens approved tx hash: ${transactionReceipt.transactionHash}`
+            `Tokens approved tx hash: ${transactionReceipt.transactionHash}`,
           );
         },
         onError: (error) => alert(error.message),
-      }
+      },
     );
   };
 
@@ -83,11 +90,11 @@ export function Bets() {
           });
           setIsApproved(false);
           alert(
-            `Tokens approved tx hash: ${transactionReceipt.transactionHash}`
+            `Tokens approved tx hash: ${transactionReceipt.transactionHash}`,
           );
         },
         onError: (error) => alert(error.message),
-      }
+      },
     );
   };
 
@@ -102,28 +109,35 @@ export function Bets() {
           <div className="flex items-center justify-between">
             <span>Price</span>
             <span className="font-bold">
-              {formatEther(betPrice?.result as bigint)} LEGIT
+              {formatEther((betPrice?.result as bigint) || BigInt(0))} LEGIT
             </span>
           </div>
           <div className="flex items-center justify-between">
             <span>Fee</span>
             <span className="font-bold">
-              {formatEther(betFee?.result as bigint)} LEGIT
+              {formatEther((betFee?.result as bigint) || BigInt(0))} LEGIT
             </span>
           </div>
           <div className="flex items-center justify-between">
             <span>Prize Pool</span>
             <span className="font-bold">
-              {formatEther(prizePool?.result as bigint)} LEGIT
+              {formatEther((prizePool?.result as bigint) || BigInt(0))} LEGIT
             </span>
           </div>
+          {!balance?.result && (
+            <div className="text-center">
+              <p className="text-red-600 font-bold">
+                Please buy some tokens to place a bet
+              </p>
+            </div>
+          )}
         </div>
       </CardContent>
       <CardFooter>
         <div className="grid w-full grid-cols-2 space-x-4">
           <Button
             variant={isApproved ? "outline" : "default"}
-            disabled={isApproved}
+            disabled={isApproved || !balance?.result}
             onClick={approveTokens}
           >
             Approve Tokens
