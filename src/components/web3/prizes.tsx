@@ -58,11 +58,11 @@ export function Prizes() {
             hash: data,
           });
           alert(
-            `Tokens purchased tx hash: ${transactionReceipt.transactionHash}`
+            `Tokens purchased tx hash: ${transactionReceipt.transactionHash}`,
           );
         },
         onError: (error) => alert(error.message),
-      }
+      },
     );
   };
 
@@ -80,7 +80,7 @@ export function Prizes() {
         <div className="flex items-center justify-between">
           <span>Prize</span>
           <span className="font-bold">
-            {formatEther(prize?.result as bigint)} LEGIT
+            {formatEther((prize?.result as bigint) || BigInt(0))} LEGIT
           </span>
         </div>
         <div className="mt-4 space-y-4">
